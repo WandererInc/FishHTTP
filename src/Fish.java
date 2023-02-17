@@ -14,7 +14,7 @@ public class Fish {
             ServerSocket serverSocket = new ServerSocket(PORT);
             while (true) {
                 Socket socket = serverSocket.accept();
-                //TODO 开启新的线程处理连接
+                //开启新的线程处理连接
                 Thread t = new Handle(socket);
                 t.start();
             }

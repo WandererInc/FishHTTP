@@ -31,13 +31,6 @@ public class Handle extends Thread {
             Request req = new Request(socket.getInputStream());
             Response rsp = new Response(socket.getOutputStream());
             String url = req.getUrl();
-            //DEBUG START
-//            new Logger(4, url);
-//            new Logger(4, "Method:", req.getMethod());
-//            new Logger(4, "para:");
-//            for (String para : req.getParam())
-//                System.out.println(para);
-            //DEBUG END
             try {
                 StringBuilder stringBuilder = new ReadFile(url).readFile();
                 OutputStream outputStream = rsp.getOutputStream();
