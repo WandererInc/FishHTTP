@@ -9,6 +9,7 @@ public class Fish {
     public static final Integer PORT = 1080; //HTTP监听端口
     public static void main(String[] args) {
         new Logger(1, "Starting Fish HTTP Server at " + PORT.toString());
+        new Logger(1, "wwwroot " + System.getProperty("user.dir"));
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
             while (true) {

@@ -25,23 +25,27 @@ public class ReadFile {
             //TODO 读取文件
             try {
                 StringBuilder stringBuilder = new StringBuilder();
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(this.fileName));
+                BufferedReader bufferedReader = new BufferedReader(new FileReader("./" + this.fileName));
                 String str;
                 while ((str = bufferedReader.readLine()) != null) {
                     stringBuilder.append(str);
                     stringBuilder.append("\r\n");
                 }
+                return stringBuilder;
             } catch (FileNotFoundException e) {
-                //TODO 抛出404错误
-                new Logger(4, "404 Not Found. No such file ", fileName);
+                new Logger(2, "404 Not Found. No such file ", fileName);
                 return new StringBuilder("<h1 align=\"center\">404 Not Found</h1>\r\n<h3 align=\"center\">Fish HTTP Server v1.0 </h3>");
             } catch (IOException e) {
-                new Logger(4,"Can't read file ", fileName);
+                new Logger(2,"Can't read file ", fileName);
             }
-            return null; //如果返回null，状态码返回HTTP_NOT_FOUND
+            return new StringBuilder("<h1 align=\"center\">500 Internal Server Error</h1>\r\n<h3 align=\"center\">Fish HTTP Server v1.0 </h3>");
         } else {
-            //return new String[]{"<h1 align=\"center\">Fish HTTP Server v1.0 </h1>\r\n"};
-            return new StringBuilder("<h1 align=\"center\">Fish HTTP Server v1.0 </h1>\r\n");
+            try {
+                return new ReadFile("index.html").readFile();
+            } catch (Exception e) {
+                //TODO
+                return new StringBuilder("<h1 align=\"center\">Fish HTTP Server v1.0 </h1>\r\n");
+            }
         }
     }
 }

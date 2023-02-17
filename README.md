@@ -2,7 +2,7 @@
 
 ## You can fix bugs by your self lol
 
-```java
+```
 utils.ReadFile.readFile
 ```
 need to be fixed.
