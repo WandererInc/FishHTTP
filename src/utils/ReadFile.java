@@ -25,7 +25,7 @@ public class ReadFile {
             //TODO 读取文件
             try {
                 StringBuilder stringBuilder = new StringBuilder();
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(this.fileName));
+                BufferedReader = new BufferedReader(new FileReader(this.fileName));
                 String str;
                 while ((str = bufferedReader.readLine()) != null) {
                     stringBuilder.append(str);
