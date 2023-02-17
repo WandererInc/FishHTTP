@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
 
 public class ReadFile {
     private String fileName;
@@ -22,10 +21,10 @@ public class ReadFile {
 
     public StringBuilder readFile() {
         if (!this.fileName.equalsIgnoreCase("/")) {
-            //TODO 读取文件
             try {
                 StringBuilder stringBuilder = new StringBuilder();
-                BufferedReader bufferedReader = new BufferedReader(new FileReader("./" + this.fileName));
+                //⚠️读取文件前面./（相对目录），传入的fileName是/xxx所以应该.
+                BufferedReader bufferedReader = new BufferedReader(new FileReader("./" + this.fileName)); //可能抛出FileNotFoundException
                 String str;
                 while ((str = bufferedReader.readLine()) != null) {
                     stringBuilder.append(str);
@@ -43,7 +42,7 @@ public class ReadFile {
             try {
                 return new ReadFile("index.html").readFile();
             } catch (Exception e) {
-                //TODO
+                //这里应该不会遇到
                 return new StringBuilder("<h1 align=\"center\">Fish HTTP Server v1.0 </h1>\r\n");
             }
         }
