@@ -32,9 +32,9 @@ public class Handle extends Thread {
             Response rsp = new Response(socket.getOutputStream());
             String url = req.getUrl();
             try {
-                StringBuilder stringBuilder = new ReadFile(url).readFile();
+                byte[] bytes = new ReadFile(url).readFile();
                 OutputStream outputStream = rsp.getOutputStream();
-                outputStream.write((Response.HTTP_HEADER + stringBuilder.toString()).getBytes("UTF-8"));
+                outputStream.write(bytes);
                 outputStream.flush();
                 outputStream.close();
             } catch (NullPointerException n) {

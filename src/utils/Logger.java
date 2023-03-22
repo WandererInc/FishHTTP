@@ -3,36 +3,48 @@ package utils;
 import java.text.SimpleDateFormat;
 
 public class Logger {
+    private StringBuilder logMsg = new StringBuilder();
     private int logLevel;
-    private String[] logContext;
-    private long time;
-
-    public Logger(int logLevel, String... logContext) {
-        this.time = System.currentTimeMillis();
-        this.logLevel = logLevel;
-        this.logContext = logContext;
-        if (logLevel >= 1) {
-            if (logLevel == 1) //warning
-                this.output("[I] ");
-            else if (logLevel == 2) //Error
-                this.output("[W] ");
-            else if (logLevel == 3)
-                this.output("[E] ");
-            else if (logLevel == 4)
-                this.output("<<DEBUG>> "); //only for debugging
-            else //I don't know either lol
-                output("");
-        }
+    public static boolean debugLevel = true;
+    public static String getColoredString(int color, String string) {
+        color = 31 + color;
+        int fontType = 2;
+        return String.format("\033[%d;%dm%s\033[0m", color,fontType,string);
     }
-
-    private void output(String level) {
-        System.out.print(level);
-        System.out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(this.time));
-        System.out.print(" ");
-        for (String context : this.logContext)
-            System.out.print(context);
-        System.out.println();
-        //输出格式： [标志] 时间 事件
+    public Logger(int logLevel, String... log) {
+        int color = 0;
+        switch (logLevel) {
+            case 1:
+                color = 1;
+                logMsg.append(getColoredString(color, "[Info] "));
+                break;
+            case 2:
+                color = 2;
+                logMsg.append(getColoredString(color, "[Warning] "));
+                break;
+            case 3:
+                color = 0;
+                logMsg.append(getColoredString(color, "[Error] "));
+                break;
+            case 4:
+                if (debugLevel) {
+                    color = 3;
+                    logMsg.append(getColoredString(color, "<<<DEBUG>>> "));
+                } else {
+                    return;
+                }
+                break;
+        }
+        logMsg.append(getColoredString(color, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis())));
+        logMsg.append(getColoredString(color, " ==> "));
+        for (String str : log) {
+            this.logMsg.append(getColoredString(color, str));
+            this.logMsg.append(" ");
+        }
+        this.output();
+    }
+    private void output() {
+        System.out.println(this.logMsg);
     }
 
 }
