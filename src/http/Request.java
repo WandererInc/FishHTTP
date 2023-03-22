@@ -12,7 +12,7 @@ public class Request {
     private String url;
     private String[] param;
     public Request(InputStream inputStream) {
-        //封装HTTP请求包
+        
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         try {
             //将请求头先按照空格分割（请求实例：GET /index.php?id=1&session=1234567 HTTP/1.1）
